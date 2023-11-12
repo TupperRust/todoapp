@@ -13,4 +13,9 @@ impl Repository for Memory {
     fn get(&self, name: &String) -> Option<list::List> {
         self.lists.iter().find(|&list| list.name == *name).cloned()
     }
+
+    fn delete(&mut self, name: &String) {
+        let i = self.lists.iter().position(|l| &l.name == name).unwrap();
+        Some(self.lists.remove(i));
+    }
 }

@@ -2,28 +2,41 @@ mod options;
 
 use std::path::Path;
 
-use domain::{create_list, insert_into, mark_as_done};
+use domain::{create_list, delete_list, delete_task, insert_into, mark_as_done};
 use options::{Command, Options, Parser};
 use persistence::Memory;
 
-static MEMORY: &'static str = ".memory";
+static MEMORY: &str = ".memory";
 
 fn main() {
     let options = Options::parse();
 
-    let mut memory = Memory::load(&Path::new(MEMORY));
+    let mut memory = Memory::load(Path::new(MEMORY));
 
     match options.command {
-        Command::Create { name } => {
-            create_list(name, &mut memory);
+        Command::Create { list } => {
+            create_list(list.clone(), &mut memory);
+            println!("List '{list}' created.");
         }
-        Command::Insert { name, task } => {
-            insert_into(name, task, &mut memory);
+        Command::Insert { list, task } => {
+            insert_into(list.clone(), task.clone(), &mut memory);
+            println!("Task '{task}' inserted in list '{list}'.");
         }
-        Command::Done { name, task } => {
-            mark_as_done(name, task, &mut memory);
+        Command::Done { list, task } => {
+            mark_as_done(list.clone(), task.clone(), &mut memory);
+            println!("Task '{task}' in list '{list}' is marked as done!.");
         }
+        Command::Delete { list, task } => match task {
+            Some(t) => {
+                delete_task(list.clone(), t.clone(), &mut memory);
+                println!("Deleted task '{t}' in list '{list}'.");
+            }
+            None => {
+                delete_list(list.clone(), &mut memory);
+                println!("Deleted list '{list}'.");
+            }
+        },
     }
 
-    memory.save(&Path::new(MEMORY));
+    memory.save(Path::new(MEMORY));
 }
