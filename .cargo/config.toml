@@ -1,0 +1,8 @@
+[alias]
+
+#-------------------#
+#  Project aliases  #
+#-------------------#
+
+# Allows to run the cli with `cargo todo` without the whole compilation log (option -q)
+todo = "run --message-format=short -q -p cli --"
