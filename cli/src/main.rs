@@ -8,10 +8,10 @@ use persistence::Memory;
 
 static MEMORY: &str = ".memory";
 
-fn main() {
+fn main() -> Result<(), main_error::MainError> {
     let options = Options::parse();
 
-    let mut memory = Memory::load(Path::new(MEMORY));
+    let mut memory = Memory::load(Path::new(MEMORY))?;
 
     match options.command {
         Command::Create { list } => {
@@ -19,16 +19,16 @@ fn main() {
             println!("List '{list}' created.");
         }
         Command::Insert { list, task } => {
-            insert_into(list.clone(), task.clone(), &mut memory);
+            insert_into(list.clone(), task.clone(), &mut memory)?;
             println!("Task '{task}' inserted in list '{list}'.");
         }
         Command::Done { list, task } => {
-            mark_as_done(list.clone(), task.clone(), &mut memory);
+            mark_as_done(list.clone(), task.clone(), &mut memory)?;
             println!("Task '{task}' in list '{list}' is marked as done!.");
         }
         Command::Delete { list, task } => match task {
             Some(t) => {
-                delete_task(list.clone(), t.clone(), &mut memory);
+                delete_task(list.clone(), t.clone(), &mut memory)?;
                 println!("Deleted task '{t}' in list '{list}'.");
             }
             None => {
@@ -38,5 +38,7 @@ fn main() {
         },
     }
 
-    memory.save(Path::new(MEMORY));
+    memory.save(Path::new(MEMORY))?;
+
+    Ok(())
 }

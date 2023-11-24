@@ -18,7 +18,7 @@ impl List {
     }
 
     pub fn todo(&mut self, entry: Entry) {
-        if self.entries.iter().any(|e| e.task == entry.task) {
+        if !self.entries.iter().any(|e| e.task == entry.task) {
             self.entries.push(entry);
         }
     }
@@ -27,5 +27,5 @@ impl List {
 pub trait Repository {
     fn add(&mut self, entry: List);
     fn get(&self, name: &String) -> Option<List>;
-    fn delete(&mut self, name: &String);
+    fn delete(&mut self, name: &String) -> Option<List>;
 }
