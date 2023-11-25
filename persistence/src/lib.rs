@@ -24,8 +24,4 @@ impl Memory {
         serde_json::to_writer(file, &self.lists)?;
         Ok(())
     }
-
-    pub fn iter(&self) -> impl std::iter::Iterator<Item=&List> {
-        self.lists.iter()
-    }
 }
