@@ -10,12 +10,14 @@ impl Repository for Memory {
         }
     }
 
+    /// Returns the list with the specified name, if it exists
     fn get(&self, name: &String) -> Option<list::List> {
         self.lists.iter().find(|&list| list.name == *name).cloned()
     }
 
-    fn delete(&mut self, name: &String) {
-        let i = self.lists.iter().position(|l| &l.name == name).unwrap();
-        Some(self.lists.remove(i));
+    /// Removes the list with the specified name (if it exists) and return it.
+    fn delete(&mut self, name: &String) -> Option<list::List> {
+        let i = self.lists.iter().position(|l| &l.name == name)?;
+        Some(self.lists.remove(i))
     }
 }
