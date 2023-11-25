@@ -11,20 +11,17 @@ impl Repository for Memory {
     }
 
     /// Returns the list with the specified name, if it exists
-    fn get(&self, name: &String) -> Option<list::List> {
+    fn get(&self, name: &str) -> Option<list::List> {
         self.lists.iter().find(|&list| list.name == *name).cloned()
     }
 
     fn get_list_names(&self) -> Vec<String> {
-        self.lists
-            .iter()
-            .map(|list| list.name.clone())
-            .collect()
+        self.lists.iter().map(|list| list.name.clone()).collect()
     }
 
     /// Removes the list with the specified name (if it exists) and return it.
-    fn delete(&mut self, name: &String) -> Option<list::List> {
-        let i = self.lists.iter().position(|l| &l.name == name)?;
+    fn delete(&mut self, name: &str) -> Option<list::List> {
+        let i = self.lists.iter().position(|l| l.name == name)?;
         Some(self.lists.remove(i))
     }
 }
