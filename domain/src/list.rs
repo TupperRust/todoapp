@@ -1,3 +1,4 @@
+use std::fmt::{self, Display, Formatter};
 use super::entry::Entry;
 use serde::{Deserialize, Serialize};
 
@@ -24,8 +25,16 @@ impl List {
     }
 }
 
+impl Display for List {
+    fn fmt(&self, fmt: &mut Formatter<'_>) -> fmt::Result {
+        write!(fmt, "# {} :\n", self.name)?;
+        self.entries.iter().try_for_each(|e| write!(fmt, "    - {} : {:?}\n", e.task, e.status))
+    }
+}
+
 pub trait Repository {
     fn add(&mut self, entry: List);
     fn get(&self, name: &String) -> Option<List>;
+    fn get_list_names(&self) -> Vec<String>;
     fn delete(&mut self, name: &String) -> Option<List>;
 }
