@@ -2,7 +2,7 @@ mod options;
 
 use std::path::Path;
 
-use domain::{create_list, delete_list, delete_task, insert_into, mark_as_done};
+use domain::{create_list, delete_list, delete_task, insert_into, mark_as_done, show_list, show_all};
 use options::{Command, Options, Parser};
 use persistence::Memory;
 
@@ -35,6 +35,14 @@ fn main() -> Result<(), main_error::MainError> {
                 delete_list(list.clone(), &mut memory);
                 println!("Deleted list '{list}'.");
             }
+        },
+        Command::Show { list } => match list {
+            Some(l) => {
+                show_list(l.clone(), &mut memory)?;
+            },
+            None => {
+                show_all(&mut memory);
+            },
         },
     }
 

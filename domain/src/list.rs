@@ -1,5 +1,6 @@
 use super::entry::Entry;
 use serde::{Deserialize, Serialize};
+use std::fmt::{self, Display, Formatter};
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct List {
@@ -24,8 +25,18 @@ impl List {
     }
 }
 
+impl Display for List {
+    fn fmt(&self, fmt: &mut Formatter<'_>) -> fmt::Result {
+        writeln!(fmt, "# {} :", self.name)?;
+        self.entries
+            .iter()
+            .try_for_each(|e| writeln!(fmt, "    - {} : {:?}", e.task, e.status))
+    }
+}
+
 pub trait Repository {
     fn add(&mut self, entry: List);
-    fn get(&self, name: &String) -> Option<List>;
-    fn delete(&mut self, name: &String) -> Option<List>;
+    fn get(&self, name: &str) -> Option<List>;
+    fn get_list_names(&self) -> Vec<String>;
+    fn delete(&mut self, name: &str) -> Option<List>;
 }

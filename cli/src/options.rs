@@ -37,4 +37,9 @@ pub enum Command {
         /// If indicated, then the said task will be deleted
         task: Option<String>,
     },
+    /// Shows the contents of a todo-list
+    Show {
+        /// The name of the todo-list to show, shows all of them if not specified
+        list: Option<String>,
+    },
 }
