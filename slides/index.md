@@ -43,7 +43,7 @@ Meetup thanks to **Julio**
 :::: column
 Gwennan
 
-<img src="./img/Gwennan.jpg" style="width:12vw;">
+<img src="./img/Gwennan.svg" style="width:12vw;">
 ::::
 :::: column
 Léo
