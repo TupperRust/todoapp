@@ -43,7 +43,7 @@ Meetup thanks to **Julio**
 :::: column
 Gwennan
 
-<img src="./img/Gwennan.svg" style="width:12vw;">
+<img src="./img/Gwennan.svg" style="width:12vw;height:24vh">
 ::::
 :::: column
 Léo
@@ -53,7 +53,7 @@ Léo
 :::: column
 Pablo
 
-<img src="https://pcoves.gitlab.io/processed_images/pcoves.7c2945c5eb9e3ec1.webp" style="width:10vw;">
+<img src="https://pcoves.gitlab.io/processed_images/pcoves.7c2945c5eb9e3ec1.webp" style="width:9vw;">
 ::::
 :::
 
